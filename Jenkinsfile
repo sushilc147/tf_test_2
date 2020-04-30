@@ -5,8 +5,10 @@ pipeline {
 	
   }
   agent {
-     filename 'Dockerfile'
-	 reusenode false
+    dockerfile {
+		 filename 'Dockerfile'
+		 reusenode false
+	 }
   }
   
   stages {
