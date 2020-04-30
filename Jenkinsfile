@@ -30,11 +30,11 @@ pipeline {
     }*/
 	stage('deploy') {
 	   steps {
-			
-			customImage.inside {
-				   sh 'echo $AWS_ACCESS_KEY_ID'
-			}		    
-				
+			script {
+				customImage.inside {
+					   sh 'echo $AWS_ACCESS_KEY_ID'
+				}		    
+			}
 			
 		}
 	}
