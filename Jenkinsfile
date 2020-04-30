@@ -3,6 +3,7 @@ pipeline {
     registry = "my-image/sushil"
     //registryCredential = 'dockerhub'
     customImage = ''
+	
   }
   agent any
   stages {
@@ -30,6 +31,11 @@ pipeline {
 	stage('deploy') {
 	   steps {
 			script {
+				customImage.inside {
+					   sh 'echo $AWS_ACCESS_KEY_ID'
+				}
+			    
+				/*
 				withCredentials([[
 				$class: 'AmazonWebServicesCredentialsBinding',
 				credentialsId: 'sushilAwsCredentials',
@@ -42,7 +48,8 @@ pipeline {
 						sh 'echo `pwd`'
 						sh 'terraform init -var accessKey=${AWS_ACCESS_KEY_ID} -var secretKey=${AWS_SECRET_ACCESS_KEY}'	
 					}	
-                }					
+                }
+               */				
 			}
 		}
 	}
