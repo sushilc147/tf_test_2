@@ -35,12 +35,14 @@ pipeline {
 				accessKeyVariable: 'AWS_ACCESS_KEY_ID',
 				secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
 			]]) {
-			    customImage.inside {
-				   sh 'echo $AWS_ACCESS_KEY_ID'
-					sh 'echo $AWS_SECRET_ACCESS_KEY'
-					sh 'echo `pwd`'
-					sh 'terraform init -var accessKey=${AWS_ACCESS_KEY_ID} -var secretKey=${AWS_SECRET_ACCESS_KEY}'	
-				}				
+			    script {
+					customImage.inside {
+					   sh 'echo $AWS_ACCESS_KEY_ID'
+						sh 'echo $AWS_SECRET_ACCESS_KEY'
+						sh 'echo `pwd`'
+						sh 'terraform init -var accessKey=${AWS_ACCESS_KEY_ID} -var secretKey=${AWS_SECRET_ACCESS_KEY}'	
+					}	
+                }					
 			}
 		}
 	}
