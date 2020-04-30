@@ -37,7 +37,7 @@ pipeline {
 				secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
 			]]) {
 					sh 'terraform plan -var accessKey=${AWS_ACCESS_KEY_ID} -var secretKey=${AWS_SECRET_ACCESS_KEY} -out=terraform.tfstate'
-					sh 'terraform apply -var accessKey=${AWS_ACCESS_KEY_ID} -var secretKey=${AWS_SECRET_ACCESS_KEY} -auto-approve -state=terraform.tfstate'
+					sh 'terraform apply "terraform.tfstate" -var accessKey=${AWS_ACCESS_KEY_ID} -var secretKey=${AWS_SECRET_ACCESS_KEY} -auto-approve'
 				}
 			
 		}
