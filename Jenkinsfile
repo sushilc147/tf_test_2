@@ -14,8 +14,7 @@ pipeline {
     stage('Building image') {
       steps{
         script {
-          //customImage = docker.build registry + ":$BUILD_NUMBER"
-		  def customImage = docker.build(registry+":${env.BUILD_ID}")
+          def customImage = docker.build(registry+":${env.BUILD_ID}")
         }
       }
     }
@@ -28,10 +27,21 @@ pipeline {
         }
       }
     }*/
+	stage('deploy') {
+	   steps {
+			withCredentials([[
+				$class: 'AmazonWebServicesCredentialsBinding',
+				credentialsId: 'jenkins',
+				accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+				secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+			]]) {
+				sh 'terraform init -var accessKey=${AWS_ACCESS_KEY_ID} -var secretKey=${AWS_SECRET_ACCESS_KEY}'	
+			}
+		}
+	}
     stage('Remove Unused docker image') {
       steps{
-        //sh "docker rmi $registry:$BUILD_NUMBER"
-		sh "docker rmi $registry:$BUILD_ID"
+        sh "docker rmi $registry:$BUILD_ID"
       }
     }
   }
