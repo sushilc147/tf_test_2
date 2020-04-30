@@ -12,7 +12,7 @@ pipeline {
   }
   
   stages {
-    stage('deploy') {
+    stage('plan') {
 	   steps {
 			withCredentials([[
 				$class: 'AmazonWebServicesCredentialsBinding',
@@ -25,6 +25,7 @@ pipeline {
 					sh 'echo $AWS_SECRET_ACCESS_KEY'
 					sh 'echo `pwd`'
 					sh 'terraform init -var accessKey=${AWS_ACCESS_KEY_ID} -var secretKey=${AWS_SECRET_ACCESS_KEY}'	
+					sh 'terraform init -var accessKey=${AWS_ACCESS_KEY_ID} -var secretKey=${AWS_SECRET_ACCESS_KEY}'
 				}
 			
 		}
