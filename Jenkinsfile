@@ -1,11 +1,9 @@
 pipeline {
   environment {
     registry = "my-image/sushil"
-    //registryCredential = 'dockerhub'
     customImage = ''
 	
   }
-  agent any
   stages {
     stage('Cloning Git') {
       steps {
@@ -19,16 +17,7 @@ pipeline {
         }
       }
     }
-    /*stage('Deploy Image') {
-      steps{
-        script {
-          docker.withRegistry( '', registryCredential ) {
-            customImage.push()
-          }
-        }
-      }
-    }*/
-	stage('deploy') {
+    stage('deploy') {
 	   steps {
 			script {
 				customImage.inside {
