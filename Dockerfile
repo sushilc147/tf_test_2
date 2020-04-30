@@ -12,6 +12,7 @@ ENV secret_key=$AWS_SECRET_ACCESS_KEY
 RUN apt-get update && apt-get install -y \
     wget \
     unzip \
+	ntp \
   && rm -rf /var/lib/apt/lists/*
   
 RUN wget --quiet https://releases.hashicorp.com/terraform/0.11.3/terraform_0.11.3_linux_amd64.zip \
@@ -31,9 +32,8 @@ WORKDIR /tmp/
 RUN echo "hello"
 RUN echo `pwd`
 RUN echo `ls -las`
+RUN echo `ntpq -p`
 
 RUN echo $access_key
 
 RUN echo $secret_key
-
-RUN terraform init -var accessKey=$access_key -var secretKey=$secret_key
